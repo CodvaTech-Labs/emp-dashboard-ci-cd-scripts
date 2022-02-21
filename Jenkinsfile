@@ -2,6 +2,13 @@ pipeline {
     agent any
 
     stages {
+        stage('Build') {
+            steps {
+                echo 'Emp-Dashboard-Built-Infra-Using-Terraform'
+                build 'emp_dashboard_infra_deployment', parameters: [[$class: 'StringParameterValue', name: 'Env', value: "Create"]]
+
+            }
+        }
         stage('GIT Clone') {
             steps {
                 echo 'GIT Clone Phase'
