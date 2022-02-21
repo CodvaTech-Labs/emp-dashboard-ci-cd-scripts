@@ -5,7 +5,7 @@ pipeline {
         stage('Build_Infra') {
             steps {
                 echo 'Emp-Dashboard-Built-Infra-Using-Terraform'
-                build 'emp_dashboard_infra_deployment', parameters: [[$class: 'StringParameterValue', name: 'Env', value: "Create"]]
+                build 'emp_dashboard_infra_deployment'
 
             }
         }
@@ -38,6 +38,13 @@ pipeline {
                 build 'emp_dashboard_monitoring'
             }
         }
+        stage('Slack Message') {
+            steps {
+                slackSend channel: '#devops-alerts',
+                color: 'good',
+                message: "*${currentBuild.currentResult}:* Job ${env.JOB_NAME} build ${env.BUILD_NUMBER}\n More info at: ${env.BUILD_URL}"
+      }
+    }
     }
     post { 
         always { 
