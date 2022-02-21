@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     stages {
-        stage('Build') {
+        stage('Build_Infra') {
             steps {
                 echo 'Emp-Dashboard-Built-Infra-Using-Terraform'
                 build 'emp_dashboard_infra_deployment', parameters: [[$class: 'StringParameterValue', name: 'Env', value: "Create"]]
